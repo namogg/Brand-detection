@@ -1,0 +1,41 @@
+path: E:/YOLO ultralytic  
+train: images/train
+val: images/train  
+test:  
+
+# Classes 
+names:
+path: E:/YOLO ultralytic  
+train: images/train2017  
+val: images/train2017  
+test:  
+
+# Classes 
+names:
+ 0: Ferrari
+ 1: Ford
+ 2: Nbc
+ 3: Starbucks
+ 4: RedBull
+ 5: Mini
+ 6: Unicef
+ 7: Yahoo
+ 8: Sprite
+ 9: Texaco
+ 10: Intel
+ 11: Cocacola
+ 12: Citroen
+ 13: Heineken
+ 14: Apple
+ 15: Google
+ 16: Fedex
+ 17: Pepsi
+ 18: Puma
+ 19: DHL
+ 20: Porsche
+ 21: Nike
+ 22: Vodafone
+ 23: BMW
+ 24: McDonalds
+ 25: HP
+ 26: Adidas
