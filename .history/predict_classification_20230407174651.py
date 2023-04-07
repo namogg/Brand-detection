@@ -22,7 +22,7 @@ model.classifier = nn.Sequential(*classifier)
 model.load_state_dict(torch.load('classification_model.pt'))
 
 #E:/Brand detect/Brand-detection/test/images/mcdonaldlogo.jpg
-img = Image.open("E:/Brand detect/Brand-detection/test/images/apple_fintech.jpg")
+img = Image.open("E:/Brand detect/Brand-detection/test/images/.jpg")
 normalize = transforms.Lambda(lambda x: x / x.max())
 transform = transforms.Compose([ transforms.Resize((224, 224)),   
                                  transforms.ToTensor(),
