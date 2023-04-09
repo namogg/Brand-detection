@@ -3,32 +3,29 @@ import torchvision.models as models
 import torch 
 import torch.nn as nn
 import torchvision.transforms as transforms
-model = models.vgg16()
-
-# Replace last layer with custom classifier for your task
+import matplotlib.pyplot as plt
+import numpy as np
+import io
+model = models.googlenet(pretrained=True)
 num_classes = 27
-print(model)
-#model.fc = nn.Linear(model.fc.in_features, num_classes)
-classifier = list(model.classifier.children())[:-1]
+model.fc = nn.Linear(model.fc.in_features, num_classes)
 
-# Add a new layer at the end for classification
-classifier.extend([nn.Linear(4096, num_classes)])
-
-# Set the modified classifier as the model's classifier
-model.classifier = nn.Sequential(*classifier)
-# Replace last layer with custom classifier for your task   
-#model.fc = nn.Linear(model.fc.in_features, num_classes)
-
-model.load_state_dict(torch.load('classification_model.pt'))
-
+model.load_state_dict(torch.load('best_classification_model.pt'))
+model.eval()
+class_names = ['Ferrari', 'Ford', 'Nbc', 'Starbucks', 'RedBull', 'Mini', 'Unicef', 'Yahoo', 'Sprite', 'Texaco', 'Intel', 'Cocacola', 'Citroen', 'Heineken', 'Apple', 'Google', 'Fedex', 'Pepsi', 'Puma', 'DHL', 'Porsche', 'Nike', 'Vodafone', 'BMW', 'McDonalds', 'HP', 'Adidas']
 #E:/Brand detect/Brand-detection/test/images/mcdonaldlogo.jpg
-img = Image.open("E:/Brand detect/Brand-detection/test/images/apple_fintech.jpg")
-normalize = transforms.Lambda(lambda x: x / x.max())
-transform = transforms.Compose([ transforms.Resize((224, 224)),   
-                                 transforms.ToTensor(),
-                                 normalize])
-img = transform(img)
-img = img.unsqueeze(0)  # add batch dimension
+img = Image.open("E:/Brand detect/Brand-detection/test/images/dhl.jpg")
+def transform_image(image):
+    my_transforms = transforms.Compose([transforms.Resize(255),
+                                        transforms.CenterCrop(224),
+                                        transforms.ToTensor(),
+                                        transforms.Normalize(
+                                            [0.485, 0.456, 0.406],
+                                            [0.229, 0.224, 0.225])])
+    return my_transforms(image).unsqueeze(0)
+img = transform_image(img)
+
+
 
 # Pass the image through the model and get the predictions
 with torch.no_grad():
@@ -36,5 +33,14 @@ with torch.no_grad():
     print(outputs)
 
 # Print the top 5 predictions
-_, pred = outputs.topk(5, 1, True, True)
-print(pred)
+_, predicted = torch.max(outputs, 1)
+print(predicted)
+
+img = np.transpose(img.squeeze().numpy(), (1, 2, 0))
+
+# Display the image along with the predicted label
+fig, ax = plt.subplots()
+ax.imshow(img)
+ax.set_title(f"Predicted Class: {class_names[predicted]}")
+plt.show()
+
