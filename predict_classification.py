@@ -14,7 +14,7 @@ model.load_state_dict(torch.load('best_classification_model.pt'))
 model.eval()
 class_names = ['Ferrari', 'Ford', 'Nbc', 'Starbucks', 'RedBull', 'Mini', 'Unicef', 'Yahoo', 'Sprite', 'Texaco', 'Intel', 'Cocacola', 'Citroen', 'Heineken', 'Apple', 'Google', 'Fedex', 'Pepsi', 'Puma', 'DHL', 'Porsche', 'Nike', 'Vodafone', 'BMW', 'McDonalds', 'HP', 'Adidas']
 #E:/Brand detect/Brand-detection/test/images/mcdonaldlogo.jpg
-img = Image.open("E:/Brand detect/Brand-detection/test/images/dhl.jpg")
+img = Image.open("E:/Brand detect/Brand-detection/test/images/fedex.jpg")
 def transform_image(image):
     my_transforms = transforms.Compose([transforms.Resize(255),
                                         transforms.CenterCrop(224),

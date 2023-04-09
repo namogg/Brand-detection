@@ -35,8 +35,8 @@ for param in model.parameters():
 #Config
 criterion = nn.CrossEntropyLoss()
 # Optimizers specified in the torch.optim package
-optimizer = torch.optim.SGD(model.parameters(), lr=0.01, weight_decay=0.0001,momentum=0.9)
-num_epochs = 100
+optimizer = torch.optim.SGD(model.parameters(), lr=0.005, weight_decay=0.0001,momentum=0.9)
+num_epochs = 80
 # define the per-pixel normalization transform
 transform = transforms.Compose([
     transforms.Resize(255),
